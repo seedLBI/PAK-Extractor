@@ -22,18 +22,21 @@
   vcpkg install stb openjpeg libsquish zlib giflib --triplet your-triplet
 ```
 
+## Клонируем или скачиваем проект
+```bash
+  git clone https://github.com/seedLBI/PAK-Extractor.git
+```
+
 ## Настройка параметров сборки
 Открой `build.sh` и замени следующие переменные на свои:
 ```editor
 triplet="your-triplet"
-vcpkg_path="PATH/TO/VCPKG"
+vcpkg_path="/PATH/TO/VCPKG"
 ```
 
 ## Сборка
 ```bash
   bash build.sh
-  cd build
-  make
 ```
 
 
