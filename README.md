@@ -32,6 +32,6 @@ vcpkg install stb giflib nowide openjpeg libsquish zlib --triplet x64-windows-st
 
 Открываем проект в *Visual Studio* и собираем
 
-## Сборка
+## Использование
 
 Просто откройте `.exe` и вам будет представлен набор аргументов для последующего запуска
