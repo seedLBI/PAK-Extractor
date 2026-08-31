@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\ConverterImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\GIF\ConverterImage.GIF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\JP2\ConverterImage.JP2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\JPG\ConverterImage.JPG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\PNG\ConverterImage.PNG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\PTX\ConverterImage.PTX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\ScalingImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\ExtractorPAK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\PackerPAK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\XorIStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\XorOStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\ConverterImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\GIF\ConverterImage.GIF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\JP2\ConverterImage.JP2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\JPG\ConverterImage.JPG.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\PNG\ConverterImage.PNG.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Converters\PTX\ConverterImage.PTX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\IMAGE\ScalingImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\ExtractorPAK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\PackerPAK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\XorIStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sosn2\source\repos\seedLBI\PAK-Extractor\src\PAK\XorOStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{ADDCB4BF-9B20-3D08-A8C3-FCAC13BDD85C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4F2AF0DC-36B2-3176-A7B6-37C3960D7ED1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\ICON.ico" />
+    <Image Include="src\icon2.ico" />
+    <Image Include="src\icon_512.ico" />
+    <Image Include="src\MyProject.ico" />
+    <Image Include="src\LOGO.ico" />
+    <Image Include="src\LOGO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="PAK-Extractor.slnx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PAK-Extractor.rc" />
+  </ItemGroup>
+</Project>

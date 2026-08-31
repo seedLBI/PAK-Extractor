@@ -1,61 +1,37 @@
-# PAK Extractor
+﻿# PAK Manipulator
 
-Утилита для расшифровывания и извлечения содержимого архивов в формате `.pak`, используемых в играх **PopCap**.
+Утилита для распаковки и запаковки формата `.pak`, используемых в играх **PopCap**, **ALAWAR**.
 
 Есть два режима:
-* `-raw` извлекает содержимое не изменяя его.
-* `-nice` извлекает содержимое объединяя и изменяя jp2,gif,ptx => прозрачный png.
-
+* `-extract`  извлекает содержимое формата `.pak`.
+	- `-raw` извлекает сырые данные
+	- `-nice` извлекает данные объединяя текстуры с одинаковым названием в один `.png`
+* `-pack` запаковывает модифицированное пользователем содержимое обратно в `.pak`.
 
 Откуда взять файлы:
-> **Важно:** проект не содержит файлов, созданных PopCap Games. Вы должны получить `.pak` самостоятельно из установленной игры.
+> **Важно:** проект не содержит файлов, созданных PopCap Games или Alawar. Вы должны получить `.pak` самостоятельно из установленной игры.
 
 Проверенно на следующих играх:
 * Plants vs. Zombies **(PC)**
 * Zuma's revenge **(PC)**
 * Zuma's revenge **(PS3)**
+* Башенки (Alawar) **(PC)**
 
-
-## Установка зависимостей (vcpkg)
-Замени `your-triplet` на свой собственный
-```console
-  vcpkg install stb openjpeg libsquish zlib giflib --triplet your-triplet
-```
+# Сборка
 
 ## Клонируем или скачиваем проект
 ```bash
-  git clone https://github.com/seedLBI/PAK-Extractor.git
+git clone https://github.com/seedLBI/PAK-Extractor.git
 ```
 
-## Настройка параметров сборки
-Открой `build.sh` и замени следующие переменные на свои:
-```editor
-triplet="your-triplet"
-vcpkg_path="/PATH/TO/VCPKG"
+## Установка зависимостей (vcpkg)
+```console
+vcpkg install stb giflib nowide openjpeg libsquish zlib --triplet x64-windows-static
 ```
+## Сборка
+
+Открываем проект в *Visual Studio* и собираем
 
 ## Сборка
-```bash
-  bash build.sh
-```
 
-
-## Использование
-
-Извлечь из одного файла:
-
-```bash
-./ExtractorPak File.pak -raw Out_RAW -nice Out_NICE
-```
-
-Извлечь из всех `.pak` в папке:
-
-```bash
-./ExtractorPak FolderWithPAKs -raw Out_RAW -nice Out_NICE
-```
-
-Флаги необязательны — можно указать только один:
-
-```bash
-./ExtractorPak File.pak -nice Out_NICE
-```
+Просто откройте `.exe` и вам будет представлен набор аргументов для последующего запуска

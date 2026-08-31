@@ -1,4 +1,4 @@
-#include "ConverterImage.JP2.h"
+﻿#include "ConverterImage.JP2.h"
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -20,17 +20,18 @@ uint8_t ConverterImage_JP2::clamp8(const int& v) {
 }
 
 Image ConverterImage_JP2::FileToImage(const std::vector<uint8_t>& data){
-        ConvertedResult.pixels.clear();
+    ConvertedResult.pixels.clear();
+
     if(image_opj != nullptr){
         opj_image_destroy(image_opj);
         image_opj = nullptr;
     }
 
     if(!Decode(data)){
-        std::cout << "[JP2] can't decode\n";
+        std::cout << "[FileToImage(const std::vector<uint8_t>& data][JP2] can't decode\n";
     }
     if(!Translate()){
-        std::cout << "[JP2] can't translate\n";
+        std::cout << "[FileToImage(const std::vector<uint8_t>& data][JP2] can't translate\n";
     }
 
     if(image_opj != nullptr){
@@ -50,10 +51,10 @@ Image ConverterImage_JP2::FileToImage(const std::string& path_to_image){
     }
 
     if(!Decode(path_to_image)){
-        std::cout << "[JP2] can't decode\n";
+        std::cout << "[FileToImage(const std::string& path_to_image)][JP2] can't decode\n";
     }
     if(!Translate()){
-        std::cout << "[JP2] can't translate\n";
+        std::cout << "[FileToImage(const std::string& path_to_image)][JP2] can't translate\n";
     }
 
     if(image_opj != nullptr){
@@ -65,7 +66,120 @@ Image ConverterImage_JP2::FileToImage(const std::string& path_to_image){
 }
 
 void ConverterImage_JP2::ImageToFile(const Image& image_data, const std::string& path_to_output_image){
-    std::cout << "NOT CREATED\n";
+    // Проверка на валидность переданных данных
+    if (image_data.width <= 0 || image_data.height <= 0 || image_data.pixels.empty()) {
+        std::cerr << "[ImageToFile][JP2] Invalid image data\n";
+        return;
+    }
+
+    // Определяем количество каналов (от 1 до 4, по умолчанию берем 4, если данные RGBA)
+    int numcomps = (image_data.channels > 0 && image_data.channels <= 4) ? image_data.channels : 4;
+
+    // Настройка параметров компонентов изображения
+    std::vector<opj_image_cmptparm_t> cmptparm(numcomps);
+    std::memset(cmptparm.data(), 0, numcomps * sizeof(opj_image_cmptparm_t));
+
+    for (int i = 0; i < numcomps; ++i) {
+        cmptparm[i].prec = 8;          // 8 бит на канал
+        cmptparm[i].bpp = 8;           // глубина цвета компонента
+        cmptparm[i].sgnd = 0;          // Беззнаковые данные (unsigned)
+        cmptparm[i].dx = 1;            // Шаг сетки X (субсэмплинг)
+        cmptparm[i].dy = 1;            // Шаг сетки Y
+        cmptparm[i].w = image_data.width;
+        cmptparm[i].h = image_data.height;
+    }
+
+    // Определяем цветовое пространство (SRGB для 3/4 каналов, GRAY для 1/2)
+    COLOR_SPACE color_space = (numcomps >= 3) ? OPJ_CLRSPC_SRGB : OPJ_CLRSPC_GRAY;
+
+    // Создаем внутреннее представление изображения OpenJPEG
+    opj_image_t* image = opj_image_create(numcomps, cmptparm.data(), color_space);
+    if (!image) {
+        std::cerr << "[ImageToFile][JP2] Failed to create opj_image\n";
+        return;
+    }
+
+    image->x0 = 0;
+    image->y0 = 0;
+    image->x1 = image_data.width;
+    image->y1 = image_data.height;
+
+    // Переносим пиксели из структуры Image в компоненты OpenJPEG
+    int num_pixels = image_data.width * image_data.height;
+    for (int i = 0; i < num_pixels; ++i) {
+        const auto& pixel = image_data.pixels[i];
+
+        // Маппинг данных по каналам
+        if (numcomps > 0) image->comps[0].data[i] = pixel.r;
+        if (numcomps > 1) image->comps[1].data[i] = pixel.g;
+        if (numcomps > 2) image->comps[2].data[i] = pixel.b;
+        if (numcomps > 3) image->comps[3].data[i] = pixel.a;
+    }
+
+    // Настраиваем параметры сжатия энкодера
+    opj_cparameters_t parameters;
+    opj_set_default_encoder_parameters(&parameters);
+
+    // Дефолтные настройки для JPEG 2000
+    parameters.tcp_numlayers = 6;
+    //parameters.tcp_numresolutions = 6;
+    parameters.tcp_mct = (numcomps >= 3) ? 1 : 0; // Использовать Multiple Component Transform (MCT) для RGB
+
+    // Создаем кодек для сжатия (OPJ_CODEC_JP2 - формат файла .jp2)
+    opj_codec_t* codec = opj_create_compress(OPJ_CODEC_JP2);
+    if (!codec) {
+        std::cerr << "[ImageToFile][JP2] Failed to create OpenJPEG codec\n";
+        opj_image_destroy(image);
+        return;
+    }
+
+    // Привязываем параметры к кодеку
+    if (!opj_setup_encoder(codec, &parameters, image)) {
+        std::cerr << "[ImageToFile][JP2] Failed to setup OpenJPEG encoder\n";
+        opj_destroy_codec(codec);
+        opj_image_destroy(image);
+        return;
+    }
+
+    // Открываем файловый поток (OPJ_FALSE означает, что мы открываем поток для записи, а не для чтения)
+    opj_stream_t* stream = opj_stream_create_default_file_stream(path_to_output_image.c_str(), OPJ_FALSE);
+    if (!stream) {
+        std::cerr << "[ImageToFile][JP2] Failed to open output stream: " << path_to_output_image << "\n";
+        opj_destroy_codec(codec);
+        opj_image_destroy(image);
+        return;
+    }
+
+    // Начинаем сжатие
+    if (!opj_start_compress(codec, image, stream)) {
+        std::cerr << "[ImageToFile][JP2] Failed to start compression\n";
+        opj_stream_destroy(stream);
+        opj_destroy_codec(codec);
+        opj_image_destroy(image);
+        return;
+    }
+
+    // Выполняем кодирование
+    if (!opj_encode(codec, stream)) {
+        std::cerr << "[ImageToFile][JP2] Failed to encode image\n";
+        opj_stream_destroy(stream);
+        opj_destroy_codec(codec);
+        opj_image_destroy(image);
+        return;
+    }
+
+    // Завершаем процесс сжатия
+    if (!opj_end_compress(codec, stream)) {
+        std::cerr << "[ImageToFile][JP2] Failed to finalize compression\n";
+    }
+    else {
+        std::cout << "[ImageToFile][JP2] Image successfully saved to: " << path_to_output_image << "\n";
+    }
+
+    // Освобождаем выделенную память
+    opj_stream_destroy(stream);
+    opj_destroy_codec(codec);
+    opj_image_destroy(image);
 }
 
 OPJ_SIZE_T ConverterImage_JP2::opj_memory_read(void* buffer, OPJ_SIZE_T nb_bytes, void* user_data) {

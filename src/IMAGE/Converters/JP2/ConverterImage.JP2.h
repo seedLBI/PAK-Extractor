@@ -1,4 +1,4 @@
-#ifndef CONVERTER_IMAGE_JP2_H
+﻿#ifndef CONVERTER_IMAGE_JP2_H
 #define CONVERTER_IMAGE_JP2_H
 
 #include "IMAGE/ConverterImage.h"

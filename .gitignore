@@ -6,3 +6,9 @@
 /PAK-Extractor/x64/dfggdf
 /PAK-Extractor.dir/Release
 /Release
+<<<<<<< HEAD
+=======
+/.vs
+/out/build/x64-Debug
+>>>>>>> теперь только на винде(((
+/PAK-Extractor.aps

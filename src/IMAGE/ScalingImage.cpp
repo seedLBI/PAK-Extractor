@@ -1,4 +1,4 @@
-#include "ScalingImage.h"
+﻿#include "ScalingImage.h"
 
 Image IntegerScaleImage(const Image& input, const int& scale){
     Image output;
@@ -136,5 +136,48 @@ Image BicubicScaleImage(const Image& input, const int& scale) {
         }
     }
 
+    return output;
+}
+
+
+Image DownscaleImage(const Image& input, const int& scale) {
+    if (scale <= 1) return input;
+
+    Image output;
+    output.width = input.width / scale;
+    output.height = input.height / scale;
+    output.channels = input.channels;
+    output.pixels.resize(output.width * output.height);
+
+    for (int y_out = 0; y_out < output.height; ++y_out) {
+        for (int x_out = 0; x_out < output.width; ++x_out) {
+            int r = 0, g = 0, b = 0, a = 0;
+            int count = 0;
+
+            for (int dy = 0; dy < scale; ++dy) {
+                for (int dx = 0; dx < scale; ++dx) {
+                    int x_in = x_out * scale + dx;
+                    int y_in = y_out * scale + dy;
+
+                    if (x_in < input.width && y_in < input.height) {
+                        const Pixel& p = input.pixels[y_in * input.width + x_in];
+                        r += p.r;
+                        g += p.g;
+                        b += p.b;
+                        a += p.a;
+                        count++;
+                    }
+                }
+            }
+
+            Pixel& out_pixel = output.pixels[y_out * output.width + x_out];
+            if (count > 0) {
+                out_pixel.r = r / count;
+                out_pixel.g = g / count;
+                out_pixel.b = b / count;
+                out_pixel.a = a / count;
+            }
+        }
+    }
     return output;
 }

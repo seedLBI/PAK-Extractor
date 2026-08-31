@@ -1,4 +1,4 @@
-#ifndef SCALING_IMAGE_H
+﻿#ifndef SCALING_IMAGE_H
 #define SCALING_IMAGE_H
 
 #include "Image.h"
@@ -9,5 +9,7 @@ Image IntegerScaleImage(const Image& input, const int& scale);
 Image BilinearScaleImage(const Image& input, const int& scale);
 
 Image BicubicScaleImage(const Image& input, const int& scale);
+
+Image DownscaleImage(const Image& input, const int& scale);
 
 #endif

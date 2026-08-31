@@ -1,10 +1,11 @@
-#ifndef EXTRACTOR_PAK_H
+﻿#ifndef EXTRACTOR_PAK_H
 #define EXTRACTOR_PAK_H
 
 #include "IMAGE/Converters/PNG/ConverterImage.PNG.h"
 #include "IMAGE/Converters/JP2/ConverterImage.JP2.h"
 #include "IMAGE/Converters/GIF/ConverterImage.GIF.h"
 #include "IMAGE/Converters/PTX/ConverterImage.PTX.h"
+#include "IMAGE/Converters/JPG/ConverterImage.JPG.h"
 #include "IMAGE/ScalingImage.h"
 
 #include "XorIStream.h"
@@ -18,6 +19,8 @@ public:
     bool Init(const std::string path_input_file);
     bool ExctractRAW(const std::string path_output_folder);
     bool ExctractNice(const std::string& path_output_folder);
+
+    bool IsCompressed() const { return use_compression; }
 
     std::vector<std::string> GetEntries();
     std::vector<uint8_t> ExtractEntry(const std::string& name);
@@ -36,6 +39,7 @@ std::string name;
     bool use_compression;
     std::vector<std::string> passwords;
     std::vector<uint8_t> xor_key;
+    std::string input_filename;
 
     std::ifstream fin;
     XorIStream* xstream;
@@ -63,10 +67,3 @@ std::string name;
 };
 
 #endif
-
-
-
-
-
-
-
