@@ -506,6 +506,7 @@
     <Image Include="src\MyProject.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="PAK-Extractor.slnx" />
     <None Include="README.md" />
   </ItemGroup>

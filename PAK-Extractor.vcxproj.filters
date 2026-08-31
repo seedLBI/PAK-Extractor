@@ -99,6 +99,7 @@
   <ItemGroup>
     <None Include="README.md" />
     <None Include="PAK-Extractor.slnx" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PAK-Extractor.rc" />
